@@ -29,6 +29,32 @@ def getDBConnection():
     return None
   return connection
 
+def populateDB(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
+                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系):
+  """
+  Populate the MySQL database with profile data.
+
+  Parameters are all strings
+
+  Return:
+  void
+  """
+  env_file_path = Path("./.env")
+  load_dotenv(env_file_path)
+  try:
+    with connect(
+      host="localhost",
+      user=os.getenv("MYSQL_USER"),
+      password=os.getenv("MYSQL_PASSWORD"),
+      database=os.getenv("DATABASE_NAME"),
+    ) as connection:
+      addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
+                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系,
+                 connection)
+
+  except Error as e:
+    print(e)
+
 if __name__ == '__main__':
   # read csv file containing basic profile information
   # command to run: python3 populateDB.py <csv_file>
@@ -64,7 +90,7 @@ if __name__ == '__main__':
       关系人姓名 = profile_data_df.loc[i,"关系人姓名"]
       关系 = profile_data_df.loc[i,"关系"]
       
-      populateDB(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务 //
+      populateDB(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
                  社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系)
 
       # TODO remove print after debug
