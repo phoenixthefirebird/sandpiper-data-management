@@ -54,6 +54,7 @@ if __name__ == '__main__':
       加拿大潮属社团总会职务_英文 = profile_data_df.loc[i,"加拿大潮属社团总会职务_英文"]
       社团职务 = profile_data_df.loc[i,"社团职务"]
       社团职务_英文 = profile_data_df.loc[i,"社团职务_英文"]
+      工作职务 = profile_data_df.loc[i,"工作职务"]
       工作职务_英文 = profile_data_df.loc[i,"工作职务_英文"]
       联系电话 = profile_data_df.loc[i,"联系电话"]
       联系邮箱 = profile_data_df.loc[i,"联系邮箱"]
@@ -63,8 +64,10 @@ if __name__ == '__main__':
       关系人姓名 = profile_data_df.loc[i,"关系人姓名"]
       关系 = profile_data_df.loc[i,"关系"]
       
-      predictions = [float(x*100) for x in predictions] # convert to percentage
-      populateDB(accession, gene_name, protein_sequence, predictions)
-      print(f"Entry {i+1}/{len(pred_df)} ({accession}) successfully written to database!")
+      populateDB(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务 //
+                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系)
+
+      # TODO remove print after debug
+      print(f"Entry {i+1}/{len(profile_data_df)} successfully written to database!")
 
   
