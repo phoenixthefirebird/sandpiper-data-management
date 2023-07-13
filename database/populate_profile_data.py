@@ -29,6 +29,36 @@ def getDBConnection():
     return None
   return connection
 
+def addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
+                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系,
+                 connection):
+  """
+  Appends 1 profile record to profile table in the local MySQL database. 
+
+  Parameters:
+  field name variables are all strings
+  connection:       a Python connection object returned from a call to mysql.connector.connect
+                    using the username, password, and database name for the desired database.
+
+  Return:
+  void
+  """
+  insert_profile_query = """
+  INSERT INTO profiles
+  (中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
+    社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系)
+  VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )
+  """
+
+  profile_record = [
+    (中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
+     社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系)
+  ]
+
+  with connection.cursor() as cursor:
+    cursor.executemany(insert_profile_query, profile_record)
+    connection.commit()
+
 def populateDB(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
                  社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系):
   """
