@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from mysql.connector import connect, Error
+import pandas as pd
 
 def getDBConnection():
   """
@@ -12,6 +13,7 @@ def getDBConnection():
 
   Return:
   A connection object to the local MySQL database or None if the connection failed.
+  TODO verifies it actually gets the connection and how to set the variables 
   """
   env_file_path = Path("./.env")
   load_dotenv(env_file_path)
@@ -35,38 +37,34 @@ if __name__ == '__main__':
   # add optional argument for the csv filename
   parser.add_argument("-f", "--filename", dest="filename",
                       help="specifies the name of csv file containing the predictions", metavar="FILE")
-  parser.add_argument("-c", "--clear", dest="clear",
-                      help="clear the database before populating it", action="store_true")
-                      
   args = parser.parse_args()
 
-  if not args.filename and not args.clear:
+  if not args.filename:
     parser.print_help()
     sys.exit(1)
 
-  if args.clear:
-    connection = getDBConnection()
-    if connection:
-      clearDB(connection)
-      print("Database cleared")
-      connection.close()
-    else:
-      print("Error: could not connect to database")
-      sys.exit(1)
-
   if args.filename:
     filename = args.filename
-    pred_df = pd.read_csv(filename, index_col=0)
-    start_time = time.time() # for timing the script
-    for i in range(len(pred_df)):
-      accession = pred_df.loc[i,"UniProt_ID"]
-      gene_name = pred_df.loc[i,"Gene_name"]
-      protein_sequence = pred_df.loc[i,"UniProt_sequence"]
-      predictions = eval(pred_df.loc[i,"Prediction"])
+    profile_data_df = pd.read_csv(filename, index_col=0)
+    for i in range(len(profile_data_df)):
+      中文姓名 = profile_data_df.loc[i,"中文姓名"]
+      英文姓名 = profile_data_df.loc[i,"英文姓名"]
+      性别 = profile_data_df.loc[i,"性别"]
+      加拿大潮属社团总会职务 = profile_data_df.loc[i,"加拿大潮属社团总会职务"]
+      加拿大潮属社团总会职务_英文 = profile_data_df.loc[i,"加拿大潮属社团总会职务_英文"]
+      社团职务 = profile_data_df.loc[i,"社团职务"]
+      社团职务_英文 = profile_data_df.loc[i,"社团职务_英文"]
+      工作职务_英文 = profile_data_df.loc[i,"工作职务_英文"]
+      联系电话 = profile_data_df.loc[i,"联系电话"]
+      联系邮箱 = profile_data_df.loc[i,"联系邮箱"]
+      地址 = profile_data_df.loc[i,"地址"]
+      政要 = profile_data_df.loc[i,"政要"]
+      地区 = profile_data_df.loc[i,"地区"]
+      关系人姓名 = profile_data_df.loc[i,"关系人姓名"]
+      关系 = profile_data_df.loc[i,"关系"]
       
       predictions = [float(x*100) for x in predictions] # convert to percentage
       populateDB(accession, gene_name, protein_sequence, predictions)
       print(f"Entry {i+1}/{len(pred_df)} ({accession}) successfully written to database!")
 
-    print(f"Time elapsed: {time.time() - start_time} seconds")
   
