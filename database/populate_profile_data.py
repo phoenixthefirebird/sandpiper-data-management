@@ -43,6 +43,7 @@ def addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会�
   """
   env_file_path = Path("./.env")
   load_dotenv(env_file_path)
+  print(f"adding {中文姓名}'s profile")
   try:
     with connect(
       host="localhost",
@@ -66,6 +67,7 @@ def addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会�
         with connection.cursor() as cursor:
           cursor.executemany(insert_profile_query, profile_record)
           connection.commit()
+          print(f"Success adding {中文姓名}'s profile")
 
   except Error as e:
     print(e)
@@ -111,7 +113,5 @@ if __name__ == '__main__':
       addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
                  社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系, 更新时间)
 
-      # TODO remove print after debug
-      print(f"Entry {i+1}/{len(profile_data_df)} successfully written to database!")
 
   
