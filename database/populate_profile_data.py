@@ -87,26 +87,26 @@ if __name__ == '__main__':
   if args.filename:
     filename = args.filename
     profile_data_df = pd.read_csv(filename, index_col=0)
+
     for i in range(len(profile_data_df)):
-      中文姓名 = profile_data_df.loc[i,"中文姓名"]
-      英文姓名 = profile_data_df.loc[i,"英文姓名"]
-      性别 = profile_data_df.loc[i,"性别"]
-      加拿大潮属社团总会职务 = profile_data_df.loc[i,"加拿大潮属社团总会职务"]
-      加拿大潮属社团总会职务_英文 = profile_data_df.loc[i,"加拿大潮属社团总会职务_英文"]
-      社团职务 = profile_data_df.loc[i,"社团职务"]
-      社团职务_英文 = profile_data_df.loc[i,"社团职务_英文"]
-      工作职务 = profile_data_df.loc[i,"工作职务"]
-      工作职务_英文 = profile_data_df.loc[i,"工作职务_英文"]
-      联系电话 = profile_data_df.loc[i,"联系电话"]
-      联系邮箱 = profile_data_df.loc[i,"联系邮箱"]
-      地址 = profile_data_df.loc[i,"地址"]
-      政要 = profile_data_df.loc[i,"政要"]
-      地区 = profile_data_df.loc[i,"地区"]
-      关系人姓名 = profile_data_df.loc[i,"关系人姓名"]
-      关系 = profile_data_df.loc[i,"关系"]
+      中文姓名 = profile_data_df.iloc[i]["中文姓名"]
+      英文姓名 = profile_data_df.iloc[i]["英文姓名"]
+      性别 = profile_data_df.iloc[i]["性别"]
+      加拿大潮属社团总会职务 = profile_data_df.iloc[i]["加拿大潮属社团总会职务"]
+      加拿大潮属社团总会职务_英文 = profile_data_df.iloc[i]["加拿大潮属社团总会职务_英文"]
+      社团职务 = profile_data_df.iloc[i]["社团职务"]
+      社团职务_英文 = profile_data_df.iloc[i]["社团职务_英文"]
+      工作职务 = profile_data_df.iloc[i]["工作职务"]
+      工作职务_英文 = profile_data_df.iloc[i]["工作职务_英文"]
+      联系电话 = profile_data_df.iloc[i]["联系电话"]
+      联系邮箱 = profile_data_df.iloc[i]["联系邮箱"]
+      地址 = profile_data_df.iloc[i]["地址"]
+      政要 = profile_data_df.iloc[i]["政要"]
+      地区 = profile_data_df.iloc[i]["地区"]
+      关系人姓名 = profile_data_df.iloc[i]["关系人姓名"]
+      关系 = profile_data_df.iloc[i]["关系"]
       更新时间 = datetime.datetime.now(timezone.utc)
-      # TODO remove this print after debug
-      print(更新时间)
+
       
       addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
                  社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系, 更新时间)
