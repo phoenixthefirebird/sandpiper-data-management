@@ -5,6 +5,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 from mysql.connector import connect, Error
 import pandas as pd
+from datetime import timezone
+import datetime
 
 def getDBConnection():
   """
@@ -30,39 +32,9 @@ def getDBConnection():
   return connection
 
 def addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
-                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系,
-                 connection):
+                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系, 更新时间):
   """
-  Appends 1 profile record to profile table in the local MySQL database. 
-
-  Parameters:
-  field name variables are all strings
-  connection:       a Python connection object returned from a call to mysql.connector.connect
-                    using the username, password, and database name for the desired database.
-
-  Return:
-  void
-  """
-  insert_profile_query = """
-  INSERT INTO profiles
-  (中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
-    社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系)
-  VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )
-  """
-
-  profile_record = [
-    (中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
-     社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系)
-  ]
-
-  with connection.cursor() as cursor:
-    cursor.executemany(insert_profile_query, profile_record)
-    connection.commit()
-
-def populateDB(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
-                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系):
-  """
-  Populate the MySQL database with profile data.
+  Appends 1 profile record to profiles table in the local MySQL database. 
 
   Parameters are all strings
 
@@ -78,9 +50,22 @@ def populateDB(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会�
       password=os.getenv("MYSQL_PASSWORD"),
       database=os.getenv("DATABASE_NAME"),
     ) as connection:
-      addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
-                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系,
-                 connection)
+        insert_profile_query = """
+          INSERT INTO profiles
+          (中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
+            社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系,
+            更新时间)
+          VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s )
+          """
+
+        profile_record = [
+          (中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
+          社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系, 更新时间)
+        ]
+
+        with connection.cursor() as cursor:
+          cursor.executemany(insert_profile_query, profile_record)
+          connection.commit()
 
   except Error as e:
     print(e)
@@ -119,9 +104,12 @@ if __name__ == '__main__':
       地区 = profile_data_df.loc[i,"地区"]
       关系人姓名 = profile_data_df.loc[i,"关系人姓名"]
       关系 = profile_data_df.loc[i,"关系"]
+      更新时间 = datetime.datetime.now(timezone.utc)
+      # TODO remove this print after debug
+      print(更新时间)
       
-      populateDB(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
-                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系)
+      addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会职务, 加拿大潮属社团总会职务_英文, 社团职务,
+                 社团职务_英文, 工作职务, 工作职务_英文, 联系电话, 联系邮箱, 地址, 政要, 地区, 关系人姓名, 关系, 更新时间)
 
       # TODO remove print after debug
       print(f"Entry {i+1}/{len(profile_data_df)} successfully written to database!")
