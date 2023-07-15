@@ -11,12 +11,9 @@ CREATE TABLE profiles(
   联系电话 TEXT,
   联系邮箱 TEXT,
   地址 TEXT,
-  政要 BOOL,
+  政要 VARCHAR(4),
   地区 TEXT,
   关系人姓名 TEXT,
   关系 TEXT,
   更新时间 VARCHAR(255)
 );
-
--- @block
-DROP TABLE profiles;

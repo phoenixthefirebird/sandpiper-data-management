@@ -24,13 +24,9 @@ def addProfile(中文姓名, 英文姓名, 性别, 加拿大潮属社团总会�
   try:
     with connect(
       host="localhost",
-      # TODO Remove the hardcodihng
-      # user=os.getenv("MYSQL_USER"),
-      # password=os.getenv("MYSQL_PASSWORD"),
-      # database=os.getenv("DATABASE_NAME"),
-      user="root",
-      password="u909faulr",
-      database="sandpipers",
+      user=os.getenv("MYSQL_USER"),
+      password=os.getenv("MYSQL_PASSWORD"),
+      database=os.getenv("DATABASE_NAME"),
     ) as connection:
         insert_profile_query = """
           INSERT INTO profiles
