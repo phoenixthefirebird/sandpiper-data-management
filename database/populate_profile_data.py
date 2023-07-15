@@ -43,7 +43,6 @@ if __name__ == '__main__':
         
         while i < len(profile_data_df):
           中文姓名 = profile_data_df.iloc[i]["社团职务"] if pd.isna(profile_data_df.iloc[i]["中文姓名"]) and pd.isna(profile_data_df.iloc[i]["英文姓名"]) else profile_data_df.iloc[i]["英文姓名"] if pd.isna(profile_data_df.iloc[i]["中文姓名"]) else profile_data_df.iloc[i]["中文姓名"]
-          print(中文姓名)
           英文姓名 = None if pd.isna(profile_data_df.iloc[i]["英文姓名"]) else profile_data_df.iloc[i]["英文姓名"]
           性别 = None if pd.isna(profile_data_df.iloc[i]["性别"]) else profile_data_df.iloc[i]["性别"]
           加拿大潮属社团总会职务 = None if pd.isna(profile_data_df.iloc[i]["加拿大潮属社团总会职务"]) else profile_data_df.iloc[i]["加拿大潮属社团总会职务"]
