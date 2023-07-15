@@ -28,7 +28,6 @@ if __name__ == '__main__':
     profile_data_df = pd.read_csv(filename, index_col=0)
     start_index = 0 if args.start is None else args.start
     i = start_index
-    print(i)
 
     env_file_path = Path("./.env")
     load_dotenv(env_file_path)
