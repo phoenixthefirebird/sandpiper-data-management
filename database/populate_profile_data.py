@@ -14,9 +14,9 @@ if __name__ == '__main__':
 
   parser = ArgumentParser()
   # add optional argument for the csv filename
-  parser.add_argument("filename", help="specifies the name of csv file containing the predictions", metavar="FILE")
+  parser.add_argument("filename", help="The name of csv file containing the predictions", metavar="FILE")
   parser.add_argument("--start-index", dest="start", required=False,
-                      help="specifies the index of the row of data in the csv to start populating data with", type=int)
+                      help="The index of the row of data in the csv to start populating data with", type=int)
   args = parser.parse_args()
 
   if not args.filename:
