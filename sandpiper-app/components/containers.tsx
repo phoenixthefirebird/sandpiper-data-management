@@ -17,4 +17,8 @@ export const BreadcrumbContainer = styled.div`
   & nav > ol > .breadcrumb-item.active {
     color: ${colors.lightGrey};
   }
+
+  & nav > ol > li > a {
+    color: ${colors.accent};
+  }
 `
