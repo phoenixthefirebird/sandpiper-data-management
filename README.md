@@ -1,6 +1,6 @@
 ﻿# sandpiper-data-management
 
-## 1. Loading profile data into MySQL from csv
+## Loading profile data into MySQL from csv
 ### Prerequisite
 - Python 3
 - MySQL
@@ -36,3 +36,6 @@ or if you need to start loading at a certain index due to i.e. duplication or er
 
 `python .\populate_profile_data.py  <relative file path to the csv file> --start-index <row index to start loading>`
 
+
+## Requirements for running frontend app
+1. node >= 16.8.0
