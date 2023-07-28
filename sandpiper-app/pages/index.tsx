@@ -1,21 +1,9 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import styled from 'styled-components';
 import { colors } from '../styles/colors';
+import { BodyContainer } from '../components/containers';
 
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
-
-import { BodyContainer, BreadcrumbContainer } from '../components/containers';
-
-
-const BreadcrumbHome= () => {
-  return (
-    <Breadcrumb>
-      <Breadcrumb.Item active>Home</Breadcrumb.Item>
-    </Breadcrumb>
-  );
-}
 
 const StyledButton = styled(Button)`
   --bs-btn-color: ${colors.baseColor};
