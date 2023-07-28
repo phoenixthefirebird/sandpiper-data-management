@@ -7,13 +7,6 @@ export const BodyContainer = styled.div`
 `
 
 export const BreadcrumbContainer = styled.div`
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-  padding-top: 0.75rem;
-  padding-left: 0.5rem;
-  background: ${colors.darkGrey};
-
   & nav > ol > .breadcrumb-item.active {
     color: ${colors.lightGrey};
   }
@@ -23,6 +16,6 @@ export const BreadcrumbContainer = styled.div`
   }
 
   & nav > ol > li > a {
-    color: ${colors.accent};
+    color: ${colors.baseColor};
   }
 `
