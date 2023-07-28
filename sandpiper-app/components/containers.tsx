@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors } from '../styles/Colors';
+import { colors } from '../styles/colors';
 
 export const BodyContainer = styled.div`
   padding: 10px 50px;
