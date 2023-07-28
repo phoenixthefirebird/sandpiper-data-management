@@ -44,6 +44,7 @@ const OptionsContainer = styled.div`
 const OptionContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   align-items: center;
   justify-content: center;
 `
@@ -55,15 +56,15 @@ const Home = () => {
       <OptionsContainer>
         
         <OptionContainer>
-          <img src='/icons/profiles.svg'/>
-          <StyledButton variant="outline-primary" size="lg">
+          <img src='/icons/profiles.svg' alt='an icon containing three people, symbolizes a crowd'/>
+          <StyledButton href="/profiles" variant="outline-primary" size="lg">
             Profiles
           </StyledButton>
         </OptionContainer>
 
         <OptionContainer>
-          <img src='/icons/events.svg'/>
-          <StyledButton variant="outline-primary" size="lg">
+          <img src='/icons/events.svg' alt='a calendar with a star on it, symbolizes event'/>
+          <StyledButton href="/events" variant="outline-primary" size="lg">
             Events
           </StyledButton>
         </OptionContainer>

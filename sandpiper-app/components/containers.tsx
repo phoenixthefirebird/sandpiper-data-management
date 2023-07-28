@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from '../styles/colors';
 
 export const BodyContainer = styled.div`
-  padding: 10px 50px;
+  padding: 10px 20px;
   height: 100vh;
 `
 
